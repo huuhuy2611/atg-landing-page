@@ -15,12 +15,69 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+// fonts
+
+// --- Aeonik Pro font ---
+@font-face {
+  font-family: "AeonikPro-Air";
+  src: url("/fonts/aeonik/AeonikPro-Air.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-AirItali";
+  src: url("/fonts/aeonik/AeonikPro-AirItalic.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-Black";
+  src: url("/fonts/aeonik/AeonikPro-Black.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-BlackItalic";
+  src: url("/fonts/aeonik/AeonikPro-BlackItalic.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-Bold";
+  src: url("/fonts/aeonik/AeonikPro-Bold.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-BoldItalic";
+  src: url("/fonts/aeonik/AeonikPro-BoldItalic.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-Light";
+  src: url("/fonts/aeonik/AeonikPro-Light.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-LightItalic";
+  src: url("/fonts/aeonik/AeonikPro-LightItalic.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-Medium";
+  src: url("/fonts/aeonik/AeonikPro-Medium.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-MediumItali";
+  src: url("/fonts/aeonik/AeonikPro-MediumItalic.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-Regular";
+  src: url("/fonts/aeonik/AeonikPro-Regular.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-RegularItalic";
+  src: url("/fonts/aeonik/AeonikPro-RegularItalic.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-Thin";
+  src: url("/fonts/aeonik/AeonikPro-Thin.otf") format("truetype");
+}
+@font-face {
+  font-family: "AeonikPro-ThinItalic";
+  src: url("/fonts/aeonik/AeonikPro-ThinItalic.otf") format("truetype");
+}
+
+// --- Playfair Display font
+@font-face {
+  font-family: "PlayfairDisplay-Bold";
+  src: url("/fonts/playfair-display/PlayfairDisplay-Bold.ttf")
+    format("truetype");
 }
