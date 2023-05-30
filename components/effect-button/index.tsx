@@ -6,13 +6,14 @@ interface IProps {
   content: string;
   icon: ReactNode;
   btnTheme?: "light" | "dark";
+  onClick?: () => void;
 }
 
-function EffectButton({ content, icon, btnTheme }: IProps) {
+function EffectButton({ content, icon, btnTheme, onClick }: IProps) {
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} onClick={onClick}>
       <Box
         sx={{
           border: `1px solid ${
@@ -44,6 +45,7 @@ function EffectButton({ content, icon, btnTheme }: IProps) {
       <Button
         variant="contained"
         sx={{
+          p: "8px 40px",
           borderRadius: "40px",
           marginLeft: "-1px",
           background: btnTheme === "dark" ? "#fff" : theme.palette.primary.main,

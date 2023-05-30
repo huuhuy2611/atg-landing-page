@@ -1,12 +1,17 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
 function VestingSchedule() {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
-    <Box sx={{ background: "#E9EFE2", py: "140px" }}>
+    <Box sx={{ background: "#E9EFE2", py: isMobile ? "56px" : "140px" }}>
       <Container>
-        <Typography variant="h2" sx={{ mb: 5, textAlign: "center" }}>
+        <Typography
+          variant="h2"
+          sx={{ mb: isMobile ? 3 : 5, textAlign: "center" }}
+        >
           Vesting Schedule
         </Typography>
         <Image

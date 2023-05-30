@@ -1,7 +1,11 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 
 function RoadMap() {
+  const isTablet = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
+  const isDown1500 = useMediaQuery("(max-width: 1500px)");
+
   const roadmapArr = [
     {
       title: "Q2.2023",
@@ -26,45 +30,47 @@ function RoadMap() {
   ];
 
   return (
-    <Box sx={{ background: "#E9EFE2", pt: "140px" }}>
+    <Box sx={{ background: "#E9EFE2", pt: isTablet ? "56px" : "140px" }}>
       <Container>
-        <Typography variant="h2" sx={{ mb: 10 }}>
+        <Typography variant="h2" sx={{ mb: isMobile ? 5 : 10 }}>
           Roadmap
         </Typography>
-        <Box
-          sx={{
-            backgroundImage: "url('images/roadmap.svg')",
-            backgroundRepeat: "no-repeat",
-            width: "1315px",
-            height: "727px",
-            position: "relative",
-          }}
-        >
-          {roadmapArr.map(({ title, list }, index) => (
-            <Box
-              key={index}
-              sx={{
-                position: "absolute",
-                bottom: `${35 + index * 31}px`,
-                left: `${271 * index}px`,
-                ml: 2,
-              }}
-            >
-              <Typography
-                variant="h4"
-                sx={{ textAlign: "center", mb: 4, color: "#fff" }}
+        <Box sx={{ width: "100%", overflowX: isDown1500 && "auto" }}>
+          <Box
+            sx={{
+              backgroundImage: "url('images/roadmap.svg')",
+              backgroundRepeat: "no-repeat",
+              width: "1315px",
+              height: "727px",
+              position: "relative",
+            }}
+          >
+            {roadmapArr.map(({ title, list }, index) => (
+              <Box
+                key={index}
+                sx={{
+                  position: "absolute",
+                  bottom: `${47 + index * 31}px`,
+                  left: `${271 * index}px`,
+                  ml: 2,
+                }}
               >
-                {title}
-              </Typography>
-              <ul>
-                {list.map((subItem, subIndex) => (
-                  <li key={subIndex} style={{ marginBottom: "12px" }}>
-                    <Typography variant="body2">{subItem}</Typography>
-                  </li>
-                ))}
-              </ul>
-            </Box>
-          ))}
+                <Typography
+                  variant="h4"
+                  sx={{ textAlign: "center", mb: 4, color: "#fff" }}
+                >
+                  {title}
+                </Typography>
+                <ul>
+                  {list.map((subItem, subIndex) => (
+                    <li key={subIndex} style={{ marginBottom: "12px" }}>
+                      <Typography variant="body2">{subItem}</Typography>
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Container>
     </Box>
