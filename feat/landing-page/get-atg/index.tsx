@@ -1,16 +1,19 @@
 import EffectButton from "@/components/effect-button";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
 function GetAtg() {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
     <Box
       sx={{
         backgroundImage: "url('images/bg_get_atg.svg')",
         backgroundRepeat: "no-repeat",
+        backgroundSize: "auto 100%",
         width: "100%",
-        height: "500px",
+        height: isMobile ? "400px" : "500px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -22,13 +25,17 @@ function GetAtg() {
         sx={{
           textAlign: "center",
           width: "50%",
-          mb: 8,
+          mb: isMobile ? 5 : 8,
           color: "#fff",
         }}
       >
         Get ATG
       </Typography>
-      <Stack direction="row">
+      <Stack
+        direction={isMobile ? "column" : "row"}
+        gap={isMobile ? 3 : 5}
+        alignItems="center"
+      >
         <EffectButton
           icon={
             <Image
@@ -41,7 +48,6 @@ function GetAtg() {
           content="Buy on Tokenize Exchange"
           btnTheme="dark"
         />
-        <Box sx={{ width: "40px" }} />
         <EffectButton
           icon={
             <Image

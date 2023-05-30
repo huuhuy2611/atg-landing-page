@@ -7,13 +7,18 @@ import {
   Stack,
   Typography,
   useTheme,
+  useMediaQuery,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import Image from "next/image";
-import React from "react";
 import MouseOutlinedIcon from "@mui/icons-material/MouseOutlined";
+import React from "react";
 
-function Header(props) {
+function Header() {
   const theme = useTheme();
+  const isTablet = useMediaQuery("(max-width: 950px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const tabArr = [
     {
@@ -34,17 +39,44 @@ function Header(props) {
     },
   ];
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box
       sx={{
         backgroundColor: theme.palette.primary.light,
-        backgroundImage: "url('images/image_header.svg')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "right",
-        height: "980px",
+        height: isMobile ? "unset" : "980px",
         pt: 3,
+        position: "relative",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          width: isMobile ? "100vw" : "61vw",
+          height: isMobile ? "140vw" : `${61 / 1.2}vw`,
+          top: 0,
+          right: 0,
+        }}
+      >
+        <Image
+          src={
+            isMobile
+              ? "/images/image_header_mobile.svg"
+              : "/images/image_header.svg"
+          }
+          alt="Your Image"
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
       <Container
         sx={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
@@ -52,54 +84,110 @@ function Header(props) {
           sx={{
             background: "#fff",
             borderRadius: "80px",
-            height: "100px",
-            py: 4,
-            px: 6,
+            height: isTablet ? "48px" : "100px",
+            py: isTablet ? 2 : 4,
+            px: isTablet ? 2 : 6,
             display: "flex",
             justifyContent: "space-between",
             mb: 8,
+            zIndex: 10,
           }}
         >
-          <Image src="/images/logo.svg" width={232} height={30} alt="Logo" />
-          <Stack gap={5} direction="row">
-            {tabArr.map((item, index) => (
-              <Button
-                key={index}
-                onClick={() => console.log(item.slug)}
-                sx={{ p: 0 }}
-              >
-                {item.content}
+          <Image
+            src="/images/logo.svg"
+            width={isTablet ? 142 : 232}
+            height={isTablet ? 18 : 30}
+            alt="Logo"
+          />
+
+          {isTablet ? (
+            <>
+              <Button sx={{ p: 0, minWidth: "unset" }} onClick={handleClick}>
+                <Image
+                  src="/images/menu_icon.svg"
+                  width={23}
+                  height={11}
+                  alt="Logo"
+                />
               </Button>
-            ))}
-          </Stack>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                {tabArr.map((item, index) => (
+                  <MenuItem
+                    key={index}
+                    onClick={() => {
+                      console.log(item.slug);
+                      handleClose();
+                    }}
+                  >
+                    {item.content}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          ) : (
+            <Stack gap={5} direction="row">
+              {tabArr.map((item, index) => (
+                <Button
+                  key={index}
+                  onClick={() => console.log(item.slug)}
+                  sx={{ p: 0 }}
+                >
+                  {item.content}
+                </Button>
+              ))}
+            </Stack>
+          )}
         </Box>
-        <Grid container sx={{ flex: 1 }}>
-          <Grid item xs={6} lg={6} md={6} sm={6} sx={{ position: "relative" }}>
-            <Typography variant="h1" sx={{ mb: 9 }}>
+
+        <Grid container sx={{ flex: 1, mt: isMobile && "115vw" }}>
+          <Grid item lg={6} md={7} sm={8} xs={12} sx={{ position: "relative" }}>
+            <Typography variant="h1" sx={{ mb: isMobile ? 7 : 9 }}>
               “Every transaction is giving a hand to protect the environment!”
+              {/* <Image
+                src="/images/scratches.svg"
+                width={300}
+                height={13}
+                alt="scratches"
+              /> */}
             </Typography>
-            <Typography variant="body1" sx={{ width: "80%", mb: 7 }}>
+
+            <Typography
+              variant="body1"
+              sx={{ width: "80%", mb: isMobile ? 4 : 7 }}
+            >
               All Things Green is a green platform that uses blockchain
               technology to promote environmental preservation operations.
             </Typography>
-            <EffectButton
-              icon={
-                <Image
-                  src="/images/auto_stories.svg"
-                  width={24}
-                  height={24}
-                  alt="stories"
-                />
-              }
-              content="Read our Docs"
-            />
+            <Box sx={{ mb: isMobile && 4 }}>
+              <EffectButton
+                icon={
+                  <Image
+                    src="/images/auto_stories.svg"
+                    width={24}
+                    height={24}
+                    alt="stories"
+                  />
+                }
+                content="Read our Docs"
+              />
+            </Box>
+
             <Typography
               variant="body1"
               sx={{
-                position: "absolute",
+                position: !isMobile && "absolute",
                 bottom: "40px",
                 display: "flex",
                 color: "#666666",
+                mb: isMobile && 2,
               }}
             >
               <MouseOutlinedIcon sx={{ mr: 0.4 }} />

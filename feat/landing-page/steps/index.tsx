@@ -1,8 +1,18 @@
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Container,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
-function Steps(props) {
+function Steps() {
+  const isTablet = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const stepsArr = [
     {
       imageSrc: "/images/early_adopter.svg",
@@ -25,27 +35,33 @@ function Steps(props) {
   ];
 
   return (
-    <Box sx={{ py: "140px" }}>
+    <Box sx={{ py: isMobile ? "56px" : "140px" }}>
       <Container>
         <Typography
           variant="h2"
           sx={{
             textAlign: "center",
-            width: "50%",
+            width: isTablet ? "100%" : "50%",
             margin: "auto",
-            mb: 10,
+            mb: isTablet ? 7 : 10,
           }}
         >
           ATG Pass NFT is the Passport to join All Things Green programs.
         </Typography>
 
-        <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
+        <Stack
+          direction={isTablet ? "column" : "row"}
+          justifyContent={!isTablet && "space-between"}
+          alignItems={isTablet && "center"}
+          gap={isTablet && 6}
+          flexWrap="wrap"
+        >
           {stepsArr.map(({ imageSrc, title, content }, index) => (
             <Card
               key={index}
               sx={{
-                width: index === 1 ? "323px" : "333px",
-                height: "496px",
+                width: isMobile ? "100%" : isTablet ? "70%" : "333px",
+                height: isTablet ? "unset" : "496px",
                 textAlign: "center",
                 background: "transparent",
                 boxShadow: "unset",
@@ -63,13 +79,43 @@ function Steps(props) {
                   {content}
                 </Typography>
               </Box>
+              {isTablet && (
+                <Box
+                  sx={{
+                    mt: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "#408A5E",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "20px",
+                      height: "20px",
+                      border: "1px solid #408A5E",
+                      borderRadius: "40px",
+                      mb: 1,
+                    }}
+                  />
+                  <Typography variant="body1">Step {index + 1}</Typography>
+                </Box>
+              )}
             </Card>
           ))}
         </Stack>
 
-        <Box sx={{ textAlign: "center" }}>
-          <Image src="/images/steps.svg" width={955} height={128} alt="steps" />
-        </Box>
+        {!isTablet && (
+          <Box sx={{ textAlign: "center", mt: 3 }}>
+            <Image
+              src="/images/steps.svg"
+              width={955}
+              height={128}
+              alt="steps"
+            />
+          </Box>
+        )}
       </Container>
     </Box>
   );
