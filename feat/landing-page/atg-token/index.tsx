@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./AtgToken.module.scss";
 
 function AtgToken() {
@@ -43,15 +43,56 @@ function AtgToken() {
     },
   ];
 
+  const mainRef = useRef(null);
   const [value, setValue] = useState("0");
+  const [isStickyOnDesktop, setIsStickyOnDesktop] = useState(false);
 
-  const handleTabChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  useEffect(() => {
+    if (isTablet) {
+      setIsStickyOnDesktop(false);
+      return;
+    }
+
+    setIsStickyOnDesktop(true);
+
+    // handle scroll
+    const handleScroll = () => {
+      const mainElement = mainRef.current;
+      if (!mainElement || isTablet) return;
+
+      const { top: mainTop } = mainElement.getBoundingClientRect();
+      setValue(getSectionValue(mainTop));
+    };
+
+    const getSectionValue = (mainTop) => {
+      const positionStartScroll = 320;
+      const stepNextItem = 180;
+
+      if (mainTop >= -positionStartScroll) return "0";
+      if (mainTop >= -(positionStartScroll + stepNextItem * 1)) return "1";
+      if (mainTop >= -(positionStartScroll + stepNextItem * 2)) return "2";
+      return "3";
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isTablet]);
 
   return (
-    <Box sx={{ background: "#E9EFE2", py: isTablet ? "56px" : "140px" }}>
-      <Container disableGutters={useMediaQuery("(min-width: 1000px)")}>
+    <Box
+      sx={{
+        background: "#E9EFE2",
+        py: isTablet ? "56px" : "140px",
+        position: "relative",
+      }}
+      ref={mainRef}
+    >
+      <Container
+        disableGutters={useMediaQuery("(min-width: 1000px)")}
+        sx={{ height: isStickyOnDesktop ? "1600px" : "unset" }}
+      >
         <Typography variant="h2" sx={{ mb: 10, textAlign: "center" }}>
           ATG Token
         </Typography>
@@ -90,7 +131,13 @@ function AtgToken() {
             ))}
           </Stack>
         ) : (
-          <Grid container>
+          <Grid
+            container
+            sx={{
+              position: isStickyOnDesktop ? "sticky" : "unset",
+              top: "24px",
+            }}
+          >
             <Grid item lg={7} md={7} sm={7} xs={12}>
               <Box className={styles.imageContainer}>
                 <Box
@@ -115,11 +162,14 @@ function AtgToken() {
             <Grid item lg={5} md={5} sm={5} xs={12}>
               <Box
                 sx={{
-                  ml: 5,
+                  ml: 3,
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
 
                   "& .MuiTab-root": {
                     color: "#999999",
-                    p: isMobile ? 2 : 4,
+                    p: isMobile ? 2 : 3,
 
                     "&.Mui-selected": {
                       background: "#fff",
@@ -138,11 +188,7 @@ function AtgToken() {
                 }}
               >
                 <TabContext value={value}>
-                  <TabList
-                    onChange={handleTabChange}
-                    aria-label="lab API tabs example"
-                    orientation="vertical"
-                  >
+                  <TabList orientation="vertical">
                     {tabArr.map(({ title, content }, index) => (
                       <Tab
                         key={index}

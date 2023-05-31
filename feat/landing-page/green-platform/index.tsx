@@ -9,10 +9,13 @@ import {
   useTheme,
 } from "@mui/material";
 import Slider from "react-slick";
+import useScreenSize from "hooks/use-screen-size";
 
 function GreenPlatform() {
   const theme = useTheme();
   const isMobile = useMediaQuery("(max-width: 600px)");
+
+  const { width: screenWidth } = useScreenSize();
 
   const settings = {
     dots: true,
@@ -76,8 +79,7 @@ function GreenPlatform() {
       <Box
         sx={{
           width: {
-            xl: "83vw",
-            lg: "90vw",
+            lg: `${80 + (1920 - screenWidth) / 45}vw`,
             xs: "unset",
           },
           "& .slick-dots": {
