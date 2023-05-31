@@ -60,7 +60,7 @@ a {
 }
 @font-face {
   font-family: "AeonikPro-Regular";
-  src: url("/fonts/aeonik-pro/AeonikPro-Regular.otf") format("opentype");
+  src: url("/fonts/aeonik-pro/AeonikPro-Regular.otf") format("truetype");
 }
 @font-face {
   font-family: "AeonikPro-RegularItalic";

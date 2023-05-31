@@ -1,3 +1,4 @@
+import ScrollToTopButton from "@/components/scroll-on-top-button";
 import AtgToken from "@/feat/landing-page/atg-token";
 import Footer from "@/feat/landing-page/footer";
 import GetAtg from "@/feat/landing-page/get-atg";
@@ -13,7 +14,7 @@ import React from "react";
 
 function LandingPage() {
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ overflowX: "hidden" }}>
       <Header />
       <GreenPlatform />
       <AtgToken />
@@ -24,6 +25,7 @@ function LandingPage() {
       <GetAtg />
       <OurTeam />
       <Footer />
+      <ScrollToTopButton />
     </Box>
   );
 }

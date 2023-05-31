@@ -27,10 +27,9 @@ function Tokenomics() {
                 Tokenomics
               </Typography>
               <Typography variant="body1" sx={{ color: "#424242" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                ATG token is designed to be a sustainable and valuable currency
+                for the ATG platform, with a focus on ecosystem growth,
+                community engagement, and environmental impact.
               </Typography>
             </Box>
           </Grid>
