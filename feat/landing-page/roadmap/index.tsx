@@ -30,7 +30,7 @@ function RoadMap() {
   ];
 
   return (
-    <Box sx={{ background: "#E9EFE2", pt: isTablet ? "56px" : "140px" }}>
+    <Box sx={{ background: "#E9EFE2" }}>
       <Container>
         <Typography variant="h2" sx={{ mb: isMobile ? 5 : 10 }}>
           Roadmap

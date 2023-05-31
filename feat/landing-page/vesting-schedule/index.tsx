@@ -15,7 +15,7 @@ function VestingSchedule() {
           Vesting Schedule
         </Typography>
         <Image
-          src="/images/vesting_schedule.svg"
+          src="/images/vesting_schedule.jpg"
           width={1320}
           height={690}
           alt="vesting schedule"

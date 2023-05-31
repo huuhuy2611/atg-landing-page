@@ -1,0 +1,23 @@
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+
+  .imageWrapper {
+    display: flex;
+    width: max-content;
+    transition: transform 0.5s;
+  }
+
+  .image {
+    flex: 1;
+    width: 648px;
+    height: 840px;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .image.active {
+    opacity: 1;
+  }
+}

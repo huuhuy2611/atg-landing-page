@@ -16,12 +16,12 @@ function OurTeam() {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 10000,
     variableWidth: true,
     arrows: false,
   };
@@ -69,9 +69,12 @@ function OurTeam() {
       <Box
         sx={{
           width: {
-            xl: "85vw",
+            xl: "83vw",
             lg: "90vw",
             xs: "unset",
+          },
+          "& .slick-dots": {
+            bottom: "-50px",
           },
         }}
       >

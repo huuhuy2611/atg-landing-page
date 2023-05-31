@@ -9,7 +9,8 @@ import {
   Stack,
 } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import styles from "./AtgToken.module.scss";
 
 function AtgToken() {
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -42,15 +43,15 @@ function AtgToken() {
     },
   ];
 
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = useState("0");
 
-  const handleChange = (event, newValue) => {
+  const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
     <Box sx={{ background: "#E9EFE2", py: isTablet ? "56px" : "140px" }}>
-      <Container>
+      <Container disableGutters={useMediaQuery("(min-width: 1000px)")}>
         <Typography variant="h2" sx={{ mb: 10, textAlign: "center" }}>
           ATG Token
         </Typography>
@@ -89,30 +90,32 @@ function AtgToken() {
             ))}
           </Stack>
         ) : (
-          <Grid container spacing={isMobile && 4}>
-            <Grid
-              item
-              lg={6}
-              md={6}
-              sm={6}
-              xs={12}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src={tabArr[value].imageSrc}
-                width={isMobile ? 343 : 648}
-                height={isMobile ? 444 : 840}
-                alt="ATG token"
-              />
+          <Grid container>
+            <Grid item lg={7} md={7} sm={7} xs={12}>
+              <Box className={styles.imageContainer}>
+                <Box
+                  className={styles.imageWrapper}
+                  style={{ transform: `translateX(-${+value * 648}px)` }}
+                >
+                  {tabArr.map(({ imageSrc }, index) => (
+                    <Image
+                      key={index}
+                      src={imageSrc}
+                      width={isMobile ? 343 : 648}
+                      height={isMobile ? 444 : 840}
+                      alt="ATG token"
+                      className={`${styles.image} ${
+                        index === +value ? styles.active : ""
+                      }`}
+                    />
+                  ))}
+                </Box>
+              </Box>
             </Grid>
-            <Grid item lg={6} md={6} sm={6} xs={12}>
+            <Grid item lg={5} md={5} sm={5} xs={12}>
               <Box
                 sx={{
-                  ml: !isMobile && 17,
+                  ml: 5,
 
                   "& .MuiTab-root": {
                     color: "#999999",
@@ -136,7 +139,7 @@ function AtgToken() {
               >
                 <TabContext value={value}>
                   <TabList
-                    onChange={handleChange}
+                    onChange={handleTabChange}
                     aria-label="lab API tabs example"
                     orientation="vertical"
                   >

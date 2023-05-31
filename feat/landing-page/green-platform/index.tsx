@@ -20,7 +20,7 @@ function GreenPlatform() {
     speed: 500,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 10000,
     variableWidth: true,
     arrows: false,
   };
@@ -76,7 +76,7 @@ function GreenPlatform() {
       <Box
         sx={{
           width: {
-            xl: "85vw",
+            xl: "83vw",
             lg: "90vw",
             xs: "unset",
           },
