@@ -1,4 +1,3 @@
-import LockedScreen from "@/components/locked-screen.tsx";
 import ScrollToTopButton from "@/components/scroll-on-top-button";
 import AtgToken from "@/feat/landing-page/atg-token";
 import Footer from "@/feat/landing-page/footer";
