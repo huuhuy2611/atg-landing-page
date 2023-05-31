@@ -57,7 +57,11 @@ function RoadMap() {
               >
                 <Typography
                   variant="h4"
-                  sx={{ textAlign: "center", mb: 4, color: "#fff" }}
+                  sx={{
+                    textAlign: "center",
+                    mb: isMobile ? 4.5 : 4,
+                    color: "#fff",
+                  }}
                 >
                   {title}
                 </Typography>

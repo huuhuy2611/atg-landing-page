@@ -95,7 +95,7 @@ function GreenPlatform() {
                     background: background || theme.palette.primary.main,
                     color: color || "#000",
                     width: isMobile ? "253px" : "536px",
-                    height: isMobile ? "520px" : "773px",
+                    height: isMobile ? "570px" : "773px",
                   }}
                 >
                   <Image src={imageSrc} width={536} height={528} alt="image" />
