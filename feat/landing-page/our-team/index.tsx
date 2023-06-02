@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import useScreenSize from "hooks/use-screen-size";
 import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
@@ -14,6 +15,7 @@ import Slider from "react-slick";
 function OurTeam() {
   const isTablet = useMediaQuery("(max-width: 1028px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const { width: screenWidth } = useScreenSize();
 
   const settings = {
     dots: true,
@@ -58,7 +60,7 @@ function OurTeam() {
   ];
 
   return (
-    <Container sx={{ my: isMobile ? "56px" : "140px" }}>
+    <Container sx={{ py: isMobile ? "56px" : "140px" }}>
       <Typography
         variant="h2"
         sx={{ mb: isMobile ? 5 : 10, textAlign: "center" }}
@@ -69,10 +71,10 @@ function OurTeam() {
       <Box
         sx={{
           width: {
-            xl: "83vw",
-            lg: "90vw",
+            lg: `${80 + (1920 - screenWidth) / 45}vw`,
             xs: "unset",
           },
+
           "& .slick-dots": {
             bottom: "-50px",
           },

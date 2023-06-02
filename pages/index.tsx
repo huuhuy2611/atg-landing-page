@@ -14,7 +14,7 @@ import React from "react";
 
 function LandingPage() {
   return (
-    <Box sx={{ overflowX: "hidden" }}>
+    <>
       <Header />
       <GreenPlatform />
       <AtgToken />
@@ -26,7 +26,7 @@ function LandingPage() {
       <OurTeam />
       <Footer />
       <ScrollToTopButton />
-    </Box>
+    </>
   );
 }
 
