@@ -1,92 +1,116 @@
 import EffectButton from "@/components/effect-button";
-import {
-  Box,
-  Card,
-  Container,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, Container, Typography, useMediaQuery } from "@mui/material";
 import useScreenSize from "hooks/use-screen-size";
 import Image from "next/image";
-import React from "react";
-import Slider from "react-slick";
+import React, { useEffect, useMemo, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const ourTeamArr = [
+  {
+    imageSrc: "/images/mem_1.svg",
+    title: "Member #1",
+    linkedIn: "LinkedIn Member #1",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
+  },
+  {
+    imageSrc: "/images/mem_2.svg",
+    title: "Member #2",
+    linkedIn: "LinkedIn Member #2",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
+  },
+  {
+    imageSrc: "/images/mem_3.svg",
+    title: "Member #3",
+    linkedIn: "LinkedIn Member #3",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
+  },
+  {
+    imageSrc: "/images/mem_4.svg",
+    title: "Member #4",
+    linkedIn: "LinkedIn Member #4",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
+  },
+];
 
 function OurTeam() {
-  const isTablet = useMediaQuery("(max-width: 1028px)");
+  const isTablet = useMediaQuery("(max-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
   const { width: screenWidth } = useScreenSize();
+  const panels = useRef([]);
+  const panelsContainer = useRef(null);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 10000,
-    variableWidth: true,
-    arrows: false,
+  const marginContainer = useMemo(
+    () => (isTablet ? 24 : (screenWidth - 1200) / 2),
+    [isTablet, screenWidth]
+  );
+
+  const createPanelsRefs = (panel, index) => {
+    panels.current[index] = panel;
   };
 
-  const ourTeamArr = [
-    {
-      imageSrc: "/images/mem_1.svg",
-      title: "Member #1",
-      linkedIn: "LinkedIn Member #1",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    },
-    {
-      imageSrc: "/images/mem_2.svg",
-      title: "Member #2",
-      linkedIn: "LinkedIn Member #2",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    },
-    {
-      imageSrc: "/images/mem_3.svg",
-      title: "Member #3",
-      linkedIn: "LinkedIn Member #3",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    },
-    {
-      imageSrc: "/images/mem_4.svg",
-      title: "Member #4",
-      linkedIn: "LinkedIn Member #4",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    },
-  ];
+  useEffect(() => {
+    const totalPanels = panels.current.length;
+    if (!totalPanels || !screenWidth) return;
+
+    gsap.to(panels.current, {
+      xPercent: -100 * (totalPanels - (isMobile ? 0.8 : isTablet ? 1 : 2)),
+      ease: "none",
+      scrollTrigger: {
+        trigger: panelsContainer.current,
+        pin: true,
+        markers: false,
+        scrub: 0.1,
+        end: "+=3000 bottom",
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screenWidth]);
 
   return (
-    <Container sx={{ py: isMobile ? "56px" : "140px" }}>
-      <Typography
-        variant="h2"
-        sx={{ mb: isMobile ? 5 : 10, textAlign: "center" }}
-      >
-        Our Team
-      </Typography>
+    <Box sx={{ py: isMobile ? "56px" : "140px" }}>
+      <Container>
+        <Typography
+          variant="h2"
+          sx={{ mb: !isMobile && 4, textAlign: "center" }}
+        >
+          Our Team
+        </Typography>
+      </Container>
 
       <Box
         sx={{
-          width: {
-            lg: `${80 + (1920 - screenWidth) / 45}vw`,
-            xs: "unset",
-          },
-
-          "& .slick-dots": {
-            bottom: "-50px",
-          },
+          overflow: "hidden",
         }}
       >
-        <Slider {...settings}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "nowrap",
+          }}
+          ref={panelsContainer}
+        >
+          <Box
+            sx={{
+              mr: `${marginContainer}px`,
+            }}
+          />
           {ourTeamArr.map(({ imageSrc, title, content, linkedIn }, index) => (
-            <Box key={index} sx={{ mr: isMobile ? 2 : 3 }}>
+            <Box
+              key={index}
+              sx={{ mr: isMobile ? 2 : 3, mt: 6 }}
+              ref={(e) => createPanelsRefs(e, index)}
+            >
               <Card
                 sx={{
                   width: isMobile ? "253px" : isTablet ? "350px" : "424px",
-                  height: isMobile ? "550px" : isTablet ? "730px" : "807px",
+                  height: isMobile ? "570px" : isTablet ? "730px" : "807px",
                   boxShadow: "unset",
                   textAlign: "center",
                 }}
@@ -128,9 +152,9 @@ function OurTeam() {
               </Card>
             </Box>
           ))}
-        </Slider>
+        </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }
 
