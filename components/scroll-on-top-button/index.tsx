@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./ScrollToTopButton.module.scss";
 import Image from "next/image";
-import { Typography } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 
 const ScrollToTopButton = () => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = () => {
@@ -26,7 +28,12 @@ const ScrollToTopButton = () => {
       className={`${styles.scrollToTop} ${isVisible ? styles.visible : ""}`}
       onClick={scrollToTop}
     >
-      <Image src="/images/up_arrow.png" width={40} height={40} alt="arrow" />
+      <Image
+        src="/images/up_arrow.png"
+        width={isMobile ? 32 : 40}
+        height={isMobile ? 32 : 40}
+        alt="arrow"
+      />
     </button>
   );
 };

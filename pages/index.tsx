@@ -9,7 +9,6 @@ import RoadMap from "@/feat/landing-page/roadmap";
 import Steps from "@/feat/landing-page/steps";
 import Tokenomics from "@/feat/landing-page/tokenomics";
 import VestingSchedule from "@/feat/landing-page/vesting-schedule";
-import { Box } from "@mui/material";
 import React from "react";
 
 function LandingPage() {

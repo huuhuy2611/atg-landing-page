@@ -14,11 +14,13 @@ import {
 import Image from "next/image";
 import MouseOutlinedIcon from "@mui/icons-material/MouseOutlined";
 import React from "react";
+import useScreenSize from "hooks/use-screen-size";
 
 function Header() {
   const theme = useTheme();
   const isTablet = useMediaQuery("(max-width: 950px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const { width: screenWidth } = useScreenSize();
 
   const tabArr = [
     {
@@ -55,28 +57,46 @@ function Header() {
         height: isMobile ? "unset" : "980px",
         pt: 3,
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          width: isMobile ? "100vw" : "61vw",
-          height: isMobile ? "140vw" : `${61 / 1.2}vw`,
-          top: 0,
-          right: 0,
-        }}
-      >
-        <Image
-          src={
-            isMobile
-              ? "/images/image_header_mobile.svg"
-              : "/images/image_header.svg"
-          }
-          alt="Your Image"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+      {isMobile ? (
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100vw",
+            height: "140vw",
+            top: 0,
+            right: 0,
+          }}
+        >
+          <Image
+            src={"/images/image_header_mobile.svg"}
+            alt="Your Image"
+            layout="fill"
+            objectFit="cover"
+          />
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            position: "absolute",
+            width: "1172px",
+            height: "980px",
+            top: 0,
+            right: `${screenWidth > 1920 ? 0 : -((1920 - screenWidth) / 2)}px`,
+          }}
+        >
+          <Image
+            src={"/images/image_header.svg"}
+            alt="Your Image"
+            layout="fill"
+            objectFit="cover"
+            priority
+          />
+        </Box>
+      )}
+
       <Container
         sx={{ height: "100%", display: "flex", flexDirection: "column" }}
       >

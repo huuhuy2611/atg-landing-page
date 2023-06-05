@@ -5,6 +5,10 @@ import "@/styles/globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { gsap } from "gsap";
+import { CSSPlugin } from "gsap/CSSPlugin";
+gsap.registerPlugin(CSSPlugin);
+
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>

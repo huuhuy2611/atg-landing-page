@@ -11,6 +11,10 @@
   pointer-events: none;
   transition: opacity 0.3s;
 
+  @media (max-width: 600px) {
+    padding: 5px 10px;
+  }
+
   &.visible {
     opacity: 1;
     pointer-events: auto;
